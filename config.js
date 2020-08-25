@@ -13,7 +13,6 @@ module.exports = {
         mongodb: {
             host: MONGO_HOST,
             port: MONGO_PORT,
-            // url: `mongodb://${MONGO_HOST}/flower`,
             url,
         }
     }
