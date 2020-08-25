@@ -6,11 +6,14 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const config = require('./config');
-console.log(config)
+const responseManager = require('./lib/response_manager_middleware');
+const auth = require('./lib/auth');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(auth);
+app.use(responseManager);
 
 app.get('/', async (req, res) => {
     res.send(`Welcome to ${config.name}`)

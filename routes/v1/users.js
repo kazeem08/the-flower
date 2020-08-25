@@ -7,6 +7,9 @@ route.get('/', (req, res) => UserController.getUsers(req, res));
 
 route.post('/', (req, res) => UserController.createUser(req, res));
 
+route.post('/login', (req, res) => UserController.login(req, res));
+
+
 
 module.exports = route;
 
