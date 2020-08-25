@@ -54,5 +54,24 @@ module.exports = {
         } catch (e) {
             console.log('Unable to fetch user', e);
         }
+    },
+
+    // create user
+    async updateUser(req, res) {
+        try {
+            if (req.body.email) {
+                return res.errorResponse({
+                    message: 'You cannot update your email',
+                    statusCode: 400,
+                });
+            }
+            const users = await UserService.update(req.body);
+            res.json({
+                data: users,
+                message: 'user successfully updated'
+            })
+        } catch (e) {
+            console.log('Unable to fetch user', e);
+        }
     }
 }

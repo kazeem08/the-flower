@@ -9,6 +9,9 @@ route.post('/', (req, res) => UserController.createUser(req, res));
 
 route.post('/login', (req, res) => UserController.login(req, res));
 
+route.put('/', (req, res) => UserController.updateUser(req, res));
+
+
 
 
 module.exports = route;

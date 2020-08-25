@@ -11,10 +11,7 @@ module.exports = {
     async addUser(params) {
         const body = params;
 
-        console.log(body)
         const { password } = body;
-
-        // validate super admin
 
         // encrypt password
         const salt = await bcrypt.genSalt(10);
@@ -44,5 +41,23 @@ module.exports = {
         const token = jwt.sign({ _id: user._id, role: user.role }, config.secretKey);
 
         return token;
+    },
+
+    async update(params) {
+        const body = params;
+        const { password, id } = body;
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            body.password = await bcrypt.hash(password, salt);
+        };
+
+        const doc = {
+            "$set": body,
+
+        }
+        delete body._id;
+        return UserModel.findOneAndUpdate(id, doc, { new: true });
+
+
     }
 }
