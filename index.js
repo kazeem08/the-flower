@@ -1,0 +1,28 @@
+require('./init');
+require('dotenv').config();
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+
+const config = require('./config');
+const responseManager = require('./lib/response_manager_middleware');
+const auth = require('./lib/auth');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.json());
+app.use(auth);
+app.use(responseManager);
+
+app.get('/', async (req, res) => {
+    res.send(`Welcome to ${config.name}`)
+});
+
+require('./routes')(app);
+
+app.listen(3000, () => {
+    console.log(`listening on port ${config.port}`)
+})
+
+module.exports = app;
