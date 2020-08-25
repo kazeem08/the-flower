@@ -22,7 +22,7 @@ app.get('/', async (req, res) => {
 require('./routes')(app);
 
 const PORT = config.port || 6000;
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log(`listening on port ${PORT}`)
 })
 
