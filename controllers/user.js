@@ -47,7 +47,7 @@ module.exports = {
                 });
             }
             const users = await UserService.addUser(req.body);
-            res.json({
+            res.successResponse({
                 data: _.pick(users, ['_id', 'firstName', 'lastName', 'email']),
                 message: 'user successfully created'
             })
