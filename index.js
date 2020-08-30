@@ -2,6 +2,7 @@ require('./init');
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 
@@ -11,8 +12,9 @@ const auth = require('./lib/auth');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(cors())
 app.use(bodyParser.json());
-app.use(auth);
+// app.use(auth);
 app.use(responseManager);
 
 app.get('/', async (req, res) => {
