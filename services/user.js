@@ -40,7 +40,9 @@ module.exports = {
         // create token
         const token = jwt.sign({ _id: user._id, role: user.role }, config.secretKey);
 
-        return token;
+        user.token = token;
+
+        return user;
     },
 
     async update(params) {
