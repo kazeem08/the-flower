@@ -53,7 +53,6 @@ module.exports = {
 
         const doc = {
             "$set": body,
-
         }
         delete body._id;
         return UserModel.findOneAndUpdate(id, doc, { new: true });
