@@ -6,11 +6,11 @@ module.exports = {
 
     // login 
     async login(req, res) {
-        const token = await UserService.login(req.body);
+        const user = await UserService.login(req.body);
 
-        if (token) {
+        if (user) {
             return res.successResponse({
-                data: token,
+                data: _.pick(user, ['_id', 'firstName', 'lastName', 'email', 'token']),
                 message: 'Record(s)successfully fetched'
             });
         }
