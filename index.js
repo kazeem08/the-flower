@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors())
 app.use(bodyParser.json());
-// app.use(auth);
+app.use(auth);
 app.use(responseManager);
 
 app.get('/', async (req, res) => {

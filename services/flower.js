@@ -8,23 +8,35 @@ module.exports = {
 
     async addNames(params) {
         let { names } = params;
-        const flowers = await this.getFlowers({ status: 'IN_PROGRESS' });
+        const flowers = await this.getFlowers({ status: 'IN_PROGRESS', });
+
+        console.log('FLOWERS', flowers)
+        let tracker = 0;
 
         for (let i = 0; i < names.length; i++) {
-
-            const flower = flowers[i];
+            console.log(tracker, flowers.length)
+            if (tracker === flowers.length) {
+                tracker = 0;
+            }
+            const flower = flowers[tracker];
             const { level4, _id: id } = flower;
+
+            // check if level 4 is filled already
+            if (level4.length > 7) {
+                continue
+            }
+
+            // add name to level 4 array
             level4.push(names[i]);  //add name to level 4
 
             if (level4.length === 8) {
-                // call splitflower
+                // call split flower function
                 flower.status = 'COMPLETED';
                 await this.splitAndSaveFlower(flower);
-                console.log('HERER');
+                console.log('HERE');
             }
 
             delete flower._id;
-            console.log(flower)
 
             // check if there are more names to add after the first cycle
             if (i === flowers.length && names.length - i > 0) {
@@ -32,6 +44,7 @@ module.exports = {
                 i = -1;
             }
             await FlowerModel.findByIdAndUpdate(id, flower);
+            tracker++;
 
         }
     },
