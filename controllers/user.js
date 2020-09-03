@@ -10,7 +10,7 @@ module.exports = {
 
         if (user) {
             return res.successResponse({
-                data: _.pick(user, ['_id', 'firstName', 'lastName', 'email', 'token']),
+                data: _.pick(user, ['_id', 'firstName', 'lastName', 'email', 'token', 'role']),
                 message: 'Record(s)successfully fetched'
             });
         }
