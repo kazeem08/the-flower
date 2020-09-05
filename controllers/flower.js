@@ -2,7 +2,7 @@ const FlowerService = require("../services/flower");
 
 module.exports = {
     async getFlowers(req, res) {
-        const flowers = await FlowerService.getFlowers();
+        const flowers = await FlowerService.getFlowers(req.query);
 
         res.successResponse({
             data: flowers,
