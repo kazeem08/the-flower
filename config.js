@@ -15,5 +15,74 @@ module.exports = {
             port: MONGO_PORT,
             url,
         }
+    },
+    template: {
+        "flower": {
+            "name": "",
+            "children": [
+                {
+                    "name": "",
+                    "children": [
+                        {
+                            "name": "",
+                            "children": [
+                                {
+                                    "name": "",
+                                    "value": 1000
+                                },
+                                {
+                                    "name": "",
+                                    "value": 1000
+                                }
+                            ]
+                        },
+                        {
+                            "name": "",
+                            "children": [
+                                {
+                                    "name": "",
+                                    "value": 1000
+                                },
+                                {
+                                    "name": "",
+                                    "value": 1000
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "",
+                    "children": [
+                        {
+                            "name": "",
+                            "children": [
+                                {
+                                    "name": "",
+                                    "value": 1000
+                                },
+                                {
+                                    "name": "",
+                                    "value": 1000
+                                }
+                            ]
+                        },
+                        {
+                            "name": "",
+                            "children": [
+                                {
+                                    "name": "",
+                                    "value": 1000
+                                },
+                                {
+                                    "name": "",
+                                    "value": 1000
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
     }
 }

@@ -1,20 +1,12 @@
 const { Schema, mongoose } = require('./base');
 
 const flowerSchema = new Schema({
-    level1: {
-        type: Array,
+    flower: {
+        type: Object,
         required: true
     },
-    level2: {
-        type: Array,
-        required: true
-    },
-    level3: {
-        type: Array,
-        required: true
-    },
-    level4: {
-        type: Array,
+    counter: {
+        type: Number,
         required: true
     },
     status: {

@@ -1,5 +1,5 @@
 const FlowerModel = require('../models/flower');
-
+const config = require('../config')
 module.exports = {
     async getFlowers(params) {
         const query = params;
@@ -19,24 +19,42 @@ module.exports = {
                 tracker = 0;
             }
             const flower = flowers[tracker];
-            const { level4, _id: id } = flower;
+            const { _id: id } = flower;
 
-            // check if level 4 is filled already
-            if (level4.length > 7) {
+            if (flower.counter === 8) {
                 continue
             }
 
-            // add name to level 4 array
-            level4.push(names[i]);  //add name to level 4
+            if (flower.counter === 0) {
+                flower.flower.children[0].children[0].children[0].name = names[i];
+                flower.counter += 1;
+            } else if (flower.counter === 1) {
+                flower.flower.children[0].children[0].children[1].name = names[i];
+                flower.counter += 1;
+            } else if (flower.counter === 2) {
+                flower.flower.children[0].children[1].children[0].name = names[i];
+                flower.counter += 1;
+            } else if (flower.counter === 3) {
+                flower.flower.children[0].children[1].children[1].name = names[i];
+                flower.counter += 1;
+            } else if (flower.counter === 4) {
+                flower.flower.children[1].children[0].children[0].name = names[i];
+                flower.counter += 1;
 
-            if (level4.length === 8) {
-                // call split flower function
+            } else if (flower.counter === 5) {
+                flower.flower.children[1].children[0].children[1].name = names[i];
+                flower.counter += 1;
+
+            } else if (flower.counter === 6) {
+                flower.flower.children[1].children[1].children[0].name = names[i];
+                flower.counter += 1;
+            } else if (flower.counter === 7) {
+                flower.flower.children[1].children[1].children[1].name = names[i];
+                flower.counter += 1;
                 flower.status = 'COMPLETED';
                 await this.splitAndSaveFlower(flower);
-                console.log('HERE');
-            }
 
-            delete flower._id;
+            }
 
             // check if there are more names to add after the first cycle
             if (i === flowers.length && names.length - i > 0) {
@@ -50,24 +68,108 @@ module.exports = {
     },
 
     async splitAndSaveFlower(params) {
+
+        const template = {
+            "flower": {
+                "name": "",
+                "children": [
+                    {
+                        "name": "",
+                        "children": [
+                            {
+                                "name": "",
+                                "children": [
+                                    {
+                                        "name": "",
+                                        "value": 1000
+                                    },
+                                    {
+                                        "name": "",
+                                        "value": 1000
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "",
+                                "children": [
+                                    {
+                                        "name": "",
+                                        "value": 1000
+                                    },
+                                    {
+                                        "name": "",
+                                        "value": 1000
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "",
+                        "children": [
+                            {
+                                "name": "",
+                                "children": [
+                                    {
+                                        "name": "",
+                                        "value": 1000
+                                    },
+                                    {
+                                        "name": "",
+                                        "value": 1000
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "",
+                                "children": [
+                                    {
+                                        "name": "",
+                                        "value": 1000
+                                    },
+                                    {
+                                        "name": "",
+                                        "value": 1000
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        const { template } = config;
+
         const body = params;
         const status = 'IN_PROGRESS';
-        const { level2, level3, level4 } = body;
-        const newFlower1 = {
-            level1: level2[0],
-            level2: [level3[0], level3[1]],
-            level3: [level4[0], level4[1], level4[2], level4[3]],
-            status,
-        }
+        const { flower } = body;
 
-        const newFlower2 = {
-            level1: level2[1],
-            level2: [level3[2], level3[3]],
-            level3: [level4[4], level4[5], level4[6], level4[7]],
-            status,
-        }
+        template.flower.name = flower.children[0].name;
+        template.flower.children[0].name = flower.children[0].children[0].name;
+        template.flower.children[0].children[0].name = flower.children[0].children[0].children[0].name;
+        template.flower.children[0].children[1].name = flower.children[0].children[0].children[1].name;
+        template.flower.children[1].name = flower.children[0].children[1].name;
+        template.flower.children[1].children[0].name = flower.children[0].children[1].children[0].name;
+        template.flower.children[1].children[1].name = flower.children[0].children[1].children[1].name;
+        template.status = status;
+        template.counter = 0;
 
-        return FlowerModel.insertMany([newFlower1, newFlower2]);
+        await FlowerModel.create(template);
+
+        console.log('template', template);
+        template2.flower.name = flower.children[1].name;
+        template2.flower.children[1].name = flower.children[1].children[0].name;
+        template2.flower.children[1].children[0].name = flower.children[1].children[0].children[0].name;
+        template2.flower.children[1].children[1].name = flower.children[1].children[0].children[1].name;
+        template2.flower.children[0].name = flower.children[1].children[1].name;
+        template2.flower.children[0].children[1].name = flower.children[1].children[1].children[1].name;
+        template2.flower.children[0].children[0].name = flower.children[1].children[1].children[0].name;
+        template2.counter = 0;
+        template2.status = status
+
+
+        return FlowerModel.create(template);
 
     }
 }
