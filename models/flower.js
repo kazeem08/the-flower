@@ -12,6 +12,10 @@ const flowerSchema = new Schema({
     status: {
         type: String,
         required: true
+    },
+    parentId: {
+        type: String,
+        required: true
     }
 });
 

@@ -7,7 +7,7 @@ module.exports = {
         res.successResponse({
             data: flowers,
             message: 'flowers successfully fetched'
-        })
+        });
     },
 
     async addNamesToFlower(req, res) {
@@ -16,6 +16,16 @@ module.exports = {
         res.successResponse({
             data: flowers,
             message: 'flowers successfully updated'
-        })
+        });
+    },
+
+    async getFlowerById(req, res) {
+        console.log(req.params)
+        const flowers = await FlowerService.getFlowerFamily(req.params);
+
+        res.successResponse({
+            data: flowers,
+            message: 'flowers successfully updated'
+        });
     }
 }
