@@ -11,7 +11,7 @@ route.post('/login', (req, res) => UserController.login(req, res));
 
 route.put('/', (req, res) => UserController.updateUser(req, res));
 
-
+route.delete('/:id', (req, res) => UserController.deleteUser(req, res));
 
 
 module.exports = route;
