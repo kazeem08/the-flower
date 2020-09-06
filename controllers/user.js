@@ -56,7 +56,7 @@ module.exports = {
         }
     },
 
-    // create user
+    // update user
     async updateUser(req, res) {
         try {
             if (req.body.email) {
@@ -72,6 +72,18 @@ module.exports = {
             })
         } catch (e) {
             console.log('Unable to fetch user', e);
+        }
+    },
+    // delete user
+    async deleteUser(req, res) {
+        try {
+            const user = await UserService.deleteUser(req.params);
+            res.json({
+                data: user,
+                message: 'user successfully deleted'
+            })
+        } catch (e) {
+            console.log('Unable to delete user', e);
         }
     }
 }

@@ -59,6 +59,12 @@ module.exports = {
         delete body._id;
         return UserModel.findOneAndUpdate(id, doc, { new: true });
 
+    },
+
+    async deleteUser(params) {
+        const { id } = params;
+
+        return UserModel.findByIdAndRemove(id, { new: true });
 
     }
 }
