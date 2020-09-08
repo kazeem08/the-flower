@@ -9,7 +9,7 @@ route.post('/', (req, res) => UserController.createUser(req, res));
 
 route.post('/login', (req, res) => UserController.login(req, res));
 
-route.put('/', (req, res) => UserController.updateUser(req, res));
+route.put('/:id', (req, res) => UserController.updateUser(req, res));
 
 route.delete('/:id', (req, res) => UserController.deleteUser(req, res));
 

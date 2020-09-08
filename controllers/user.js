@@ -65,6 +65,7 @@ module.exports = {
                     statusCode: 400,
                 });
             }
+            req.body.id = req.params.id;
             const users = await UserService.update(req.body);
             res.json({
                 data: users,

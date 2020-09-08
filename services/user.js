@@ -48,6 +48,7 @@ module.exports = {
     async update(params) {
         const body = params;
         const { password, id } = body;
+
         if (password) {
             const salt = await bcrypt.genSalt(10);
             body.password = await bcrypt.hash(password, salt);
@@ -56,8 +57,9 @@ module.exports = {
         const doc = {
             "$set": body,
         }
+
         delete body._id;
-        return UserModel.findOneAndUpdate(id, doc, { new: true });
+        return UserModel.findOneAndUpdate({ _id: id }, doc, { new: true });
 
     },
 
